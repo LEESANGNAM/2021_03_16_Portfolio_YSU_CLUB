@@ -6,7 +6,7 @@
 <div class="container">
     <form role="form" action="/join" method="post">
         <div class="form-group">
-            <label for="member">가입회원</label>
+            <label for="member">주문회원</label>
             <select name="memberId" id="member" class="form-control">
                 <option value="">회원선택</option>
                 <option th:each="member : ${members}"
@@ -24,7 +24,8 @@
             </select>
         </div>
         <div class="form-group">
-            <input type="hidden" name="count" class="form-control" id="count" placeholder="1로 고정" value="1" readonly>
+            <label for="count">주문수량</label>
+            <input type="number" name="count" class="form-control" id="count" placeholder="1로 고정">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
