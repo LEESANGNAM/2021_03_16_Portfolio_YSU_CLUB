@@ -50,7 +50,8 @@ public class ClubController {
 
     @PostMapping("clubs/{clubId}/delete")
     public String deleteClub(@PathVariable("clubId") Long clubId){
-        clubService.deleteClub(clubId);
+        Club club = clubService.findOne(clubId);
+        clubService.deleteClub(club);
         return "redirect:/clubs";
     }
 

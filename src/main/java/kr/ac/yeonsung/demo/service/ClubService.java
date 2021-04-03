@@ -1,5 +1,6 @@
 package kr.ac.yeonsung.demo.service;
 
+import kr.ac.yeonsung.demo.domain.club.Book;
 import kr.ac.yeonsung.demo.domain.club.Club;
 import kr.ac.yeonsung.demo.repository.ClubRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,15 @@ public class ClubService {
         return clubRepository.findOne(clubId);
     }
 
+    @Transactional
     public void deleteClub(Club club){ clubRepository.deleteOne(club);}
 
+    @Transactional
+    public void updateClub(Long clubId, String name, int totalNumber, String author, String isbn) {
+        Book book =  (Book) clubRepository.findOne(clubId);
+        book.setName(name);
+        book.setTotalNumber(totalNumber);
+        book.setAuthor(author);
+        book.setIsbn(isbn);
+    }
 }
