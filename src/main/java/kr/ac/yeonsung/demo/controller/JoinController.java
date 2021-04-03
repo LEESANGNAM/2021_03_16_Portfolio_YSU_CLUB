@@ -41,10 +41,10 @@ public class JoinController {
 
         return "redirect:/joins";
     }
-
+/*
     @GetMapping("/joins")
     public String orderList(Model model){
-        List<JoinClub> joinList = joinService.findJoinClub();
+        List<JoinClub> joinList = joinService.findAll();
         model.addAttribute("joins",joinList);
         return  "join/joinList";
     }
@@ -54,5 +54,5 @@ public class JoinController {
         joinService.cancelClub(joinId);
         return "redirect:/joins";
     }
-
+*/
 }

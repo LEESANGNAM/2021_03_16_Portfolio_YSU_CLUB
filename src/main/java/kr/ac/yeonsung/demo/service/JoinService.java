@@ -11,9 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.*;
-import java.util.List;
-
 
 @Service
 @Transactional(readOnly = true)
@@ -50,12 +47,9 @@ public class JoinService {
     public void cancelClub(Long clubId){
         //엔티티 조회
         Join join = joinRepository.findOne(clubId);
+
         //동아리 탈퇴
         join.cancel();
-    }
-    // 모든 동아리 신청 현황 찾기
-    public List<JoinClub> findJoinClub() {
-        return joinRepository.findAll();
     }
 
 }
