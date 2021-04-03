@@ -20,13 +20,13 @@ public class ClubController {
     private final ClubService clubService;
 
     @GetMapping("/clubs/new")
-    public String createForm(Model model){
-       model.addAttribute("form",new BookForm());
-       return "clubs/createClubForm";
+    public String createForm(Model model) {
+        model.addAttribute("form", new BookForm());
+        return "clubs/createClubForm";
     }
 
     @PostMapping("/clubs/new")
-    public String create(BookForm form){
+    public String create(BookForm form) {
         Book book = new Book();
         book.setName(form.getName());
         book.setTotalNumber(form.getTotalNumber());
@@ -39,9 +39,9 @@ public class ClubController {
     }
 
     @GetMapping("/clubs")
-    public String list(Model model){
+    public String list(Model model) {
         List<Club> clubs = clubService.findClub();
-        model.addAttribute("clubs",clubs);
+        model.addAttribute("clubs", clubs);
         return "clubs/clubList";
 
     }
