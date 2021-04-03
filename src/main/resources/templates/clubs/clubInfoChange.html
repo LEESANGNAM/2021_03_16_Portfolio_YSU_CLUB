@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <body>
-<!--<div th:replace="fragments/sidebar :: sidebar"/>-->
+<div th:replace="fragments/sidebar :: sidebar"/>
 <div class="container">
     <div th:replace="fragments/navbar :: navbar"/>
-    <form th:action="@{/clubs/new}" th:object="${form}" method="post">
+    <form th:action="@{'/clubs/'+${clubId}+'/change'}" th:object="${form}" method="post">
         <div class="form-group">
             <label th:for="name">동아리명</label>
             <input type="text" th:field="*{name}" class="form-control"
@@ -25,7 +25,7 @@
             <input type="text" th:field="*{isbn}" class="form-control"
                    placeholder="ISBN을 입력하세요">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">수정</button>
     </form>
     <br/>
     <div th:replace="fragments/footer :: footer" />

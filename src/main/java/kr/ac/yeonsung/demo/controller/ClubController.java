@@ -45,4 +45,26 @@ public class ClubController {
         return "clubs/clubList";
     }
 
+    }
+
+
+    @PostMapping("clubs/{clubId}/delete")
+    public String deleteClub(@PathVariable("clubId") Long clubId){
+        clubService.deleteClub(clubId);
+        return "redirect:/clubs";
+    }
+
+    @GetMapping("/clubs/{clubId}/change")
+    public String changeForm(Model model,@PathVariable("clubId") Long clubId){
+        Club club = clubService.findOne(clubId);
+        model.addAttribute("form",club);
+        return "clubs/clubInfoChange";
+    }
+
+    @PostMapping("/clubs/{clubId}/change")
+    public String change(BookForm form,@PathVariable("clubId") Long clubId){
+        clubService.updateClub(clubId,form.getName(),form.getTotalNumber(),
+                                form.getAuthor(),form.getIsbn());
+        return "redirect:/clubs";
+    }
 }

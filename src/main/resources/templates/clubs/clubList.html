@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <body>
+<div th:replace="fragments/sidebar :: sidebar"/>
 <div class="container">
     <div th:replace="fragments/navbar :: navbar"/>
     <div>
@@ -18,6 +19,14 @@
                 <td th:text="${club.id}"></td>
                 <td th:text="${club.name}"></td>
                 <td th:text="${club.totalNumber}"></td>
+                <td>
+                    <a th:href="'javascript:deleteClub('+${club.id}+')'"
+                       class="btn btn-danger">삭제</a>
+                </td>
+                <td>
+                    <a th:href="'javascript:changeClub('+${club.id}+')'"
+                       class="btn btn-danger">수정</a>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -25,4 +34,25 @@
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
 </body>
+<script>
+    function deleteClub(id) {
+        if(confirm(id+"번 동아리를 삭제하시겠습니까?")){
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/clubs/" + id + "/delete");
+            document.body.appendChild(form);
+            form.submit();
+        }
+
+    }
+    function changeClub(id) {
+            var form = document.createElement("form");
+            form.setAttribute("method", "get");
+            form.setAttribute("action", "/clubs/" +id+ "/change");
+            document.body.appendChild(form);
+            form.submit();
+    }
+
+
+</script>
 </html>
