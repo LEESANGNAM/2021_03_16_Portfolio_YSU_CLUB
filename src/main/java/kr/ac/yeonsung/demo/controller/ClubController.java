@@ -43,7 +43,6 @@ public class ClubController {
         List<Club> clubs = clubService.findClub();
         model.addAttribute("clubs",clubs);
         return "clubs/clubList";
-    }
 
     }
 
