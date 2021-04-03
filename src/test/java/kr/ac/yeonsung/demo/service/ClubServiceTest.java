@@ -1,7 +1,6 @@
 package kr.ac.yeonsung.demo.service;
 
 import kr.ac.yeonsung.demo.domain.club.Book;
-import kr.ac.yeonsung.demo.domain.club.Club;
 import kr.ac.yeonsung.demo.repository.ClubRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +39,7 @@ class ClubServiceTest {
           book.setAuthor("Lee111");
           clubService.saveClub(book);
           //when
-          clubService.deleteClub(book.getId());
+          clubService.deleteClub(book);
           //then
           assertNotEquals(book,clubRepository.findOne(book.getId()));
       }
