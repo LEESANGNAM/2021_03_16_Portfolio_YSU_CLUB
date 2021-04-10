@@ -4,6 +4,7 @@ import kr.ac.yeonsung.demo.domain.club.Book;
 import kr.ac.yeonsung.demo.domain.club.Club;
 import kr.ac.yeonsung.demo.repository.ClubRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ClubService {
-
+    @Autowired
     private  final ClubRepository clubRepository;
 
     @Transactional
@@ -28,7 +29,6 @@ public class ClubService {
     public  Club findOne(Long clubId){
         return clubRepository.findOne(clubId);
     }
-
     @Transactional
     public void deleteClub(Club club){ clubRepository.deleteOne(club);}
 
