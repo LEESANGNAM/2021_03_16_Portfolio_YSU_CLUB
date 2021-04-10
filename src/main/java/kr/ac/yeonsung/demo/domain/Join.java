@@ -2,6 +2,8 @@ package kr.ac.yeonsung.demo.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class Join {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "join",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "join",cascade = CascadeType.REMOVE)
     private List<JoinClub> joinClubs = new ArrayList<>();
 
     private LocalDateTime joinDateAt;   // 신청한 날짜
@@ -41,6 +43,11 @@ public class Join {
     public void addClub(JoinClub joinClub){
         joinClubs.add(joinClub);
         joinClub.setJoin(this);
+    }
+////,,,,,
+    public void delClub(JoinClub joinClub){
+        joinClubs.remove(joinClub);
+        joinClub.setClub(null);
     }
 
     //=====생성메서드=====//
@@ -70,4 +77,6 @@ public class Join {
             joinClub.cancel();
        }
     }
+
+
 }

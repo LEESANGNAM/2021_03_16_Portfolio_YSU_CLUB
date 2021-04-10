@@ -13,10 +13,10 @@ import java.util.List;
 public class JoinRepository {
 
     private final EntityManager em;
+    private JoinClub joinClub;
 
     //동아리 신청
     public void save(Join join){
-
         em.persist(join);
     }
 
@@ -26,4 +26,9 @@ public class JoinRepository {
     }
     // 모든 동아리 신청 현황 찾기(쿼리)
     public List<JoinClub> findAll(){return em.createQuery("select j from JoinClub j",JoinClub.class).getResultList();}
+
+
+    public void deleteOne(Join join) {
+        em.remove(join);
+    }
 }

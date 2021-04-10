@@ -2,33 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <body>
-<div class="container">
-    <div th:replace="fragments/navbar :: navbar"/>
-    <div>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>동아리명</th>
-                <th>남은 가입가능인원수</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody> <tr th:each="club : ${clubs}">
-                <td th:text="${club.id}"></td>
-                <td th:text="${club.name}"></td>
-                <td th:text="${club.totalNumber}"></td>
-                <td>
-                    <a th:href="'javascript:deleteClub('+${club.id}+')'"
-                       class="btn btn-danger">삭제</a>
-                </td>
-                <td>
-                    <a th:href="'javascript:changeClub('+${club.id}+')'"
-                       class="btn btn-danger">수정</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+<div th:replace="fragments/navbar :: navbar"/>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="fragments/sidebar :: sidebar"/>
+        <div class="col-md-10">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>동아리명</th>
+                    <th>남은 가입가능인원수</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody> <tr th:each="club : ${clubs}">
+                    <td th:text="${club.id}"></td>
+                    <td th:text="${club.name}"></td>
+                    <td th:text="${club.totalNumber}"></td>
+                    <td>
+                        <a th:href="'javascript:deleteClub('+${club.id}+')'"
+                           class="btn btn-danger">삭제</a>
+                    </td>
+                    <td>
+                        <a th:href="'javascript:changeClub('+${club.id}+')'"
+                           class="btn btn-danger">수정</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->

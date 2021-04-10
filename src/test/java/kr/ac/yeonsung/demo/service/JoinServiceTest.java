@@ -25,7 +25,8 @@ import static org.junit.Assert.*;
 public class JoinServiceTest {
 
     @PersistenceContext EntityManager em;
-    @Autowired JoinRepository joinRepository;
+    @Autowired
+    JoinRepository joinRepository;
     @Autowired JoinService joinService;
 
     @Test

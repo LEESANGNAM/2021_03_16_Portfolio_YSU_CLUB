@@ -25,7 +25,7 @@ public class Member {
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
     private List<Join> joins=new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
@@ -33,4 +33,10 @@ public class Member {
 
     @OneToMany(mappedBy = "boardMember")
     private List<NoticeBoard> noticeBoardList = new ArrayList<>();
+
+////,,,,,,,
+    public void delClub(Join join){
+        joins.remove(join);
+        join.setMember(null);
+    }
 }
