@@ -10,20 +10,20 @@
             <tr>
                 <th>#</th>
                 <th>회원명</th>
-                <th>동아리 이름</th>
-                <th>동아리 신청상태</th>
-                <th>신청 취소</th>
+                <th>대표상품 이름</th>
+                <th>대표상품 주문가격</th> <th>대표상품 주문수량</th>
+                <th>상태</th>
+                <th>일시</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="joinClub : ${joins}">
-                <td th:text="${joinClub.id}"></td>
-                <td th:text="${joinClub.join.getMember().getName()}"></td>
-                <td th:text="${joinClub.club.getName()}"></td>
-                <td th:text="${joinClub.join.getMember().getStatus()}"></td>
+            <tr th:each="join : ${joins}">
+                <td th:text="${join.id}"></td>
+
                 <td>
-                    <a th:if="${joinClub.join.status.name() == 'apply'}" href="#"
-                       th:href="'javascript:cancel('+${joinClub.join.id}+')'"
+                    <a th:if="${join.status.name() == 'ORDER'}" href="#"
+                       th:href="'javascript:cancel('+${join.id}+')'"
                        class="btn btn-danger">CANCEL</a>
                 </td>
             </tr>
