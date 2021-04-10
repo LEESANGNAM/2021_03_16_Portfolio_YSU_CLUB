@@ -40,7 +40,7 @@ class ClubServiceTest {
           book.setAuthor("Lee111");
           clubService.saveClub(book);
           //when
-          clubService.deleteClub(book.getId());
+          clubService.deleteClub(book);
           //then
           assertNotEquals(book,clubRepository.findOne(book.getId()));
       }
