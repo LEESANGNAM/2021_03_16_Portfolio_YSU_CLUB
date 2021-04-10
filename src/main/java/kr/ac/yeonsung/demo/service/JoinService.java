@@ -5,30 +5,20 @@ import kr.ac.yeonsung.demo.domain.JoinClub;
 import kr.ac.yeonsung.demo.domain.Member;
 import kr.ac.yeonsung.demo.domain.club.Club;
 import kr.ac.yeonsung.demo.repository.ClubRepository;
-import kr.ac.yeonsung.demo.repository.JoinClubRepository;
 import kr.ac.yeonsung.demo.repository.JoinRepository;
 import kr.ac.yeonsung.demo.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class JoinService {
-    @Autowired
-    private  ClubRepository clubRepository;
-    @Autowired
-    private  MemberRepository memberRepository;
-    @Autowired
-    private  JoinRepository joinRepository;
-    @Autowired
-    private JoinClubRepository joinClubRepository;
-
+    private final ClubRepository clubRepository;
+    private final MemberRepository memberRepository;
+    private final JoinRepository joinRepository;
 
     //가입
     @Transactional
@@ -48,7 +38,6 @@ public class JoinService {
         //System.out.println("Ststus확인 : " + join.getStatus());
         //저장
         joinRepository.save(join);
-        joinClubRepository.save(joinClub);
         //System.out.println("===============");
         return join.getId();
     }
@@ -58,16 +47,9 @@ public class JoinService {
     public void cancelClub(Long clubId){
         //엔티티 조회
         Join join = joinRepository.findOne(clubId);
+
         //동아리 탈퇴
         join.cancel();
     }
-    // 모든 동아리 신청 현황 찾기
-    public List<JoinClub> findJoinClub() {
-        return joinRepository.findAll();
-    }
 
-
-    @Transactional
-    public Join findOne(Long clubId){  return joinRepository.findOne(clubId);}
-    public void deleteOne(Join join){ joinRepository.deleteOne(join);}
 }
