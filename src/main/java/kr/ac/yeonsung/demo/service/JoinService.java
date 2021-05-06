@@ -30,7 +30,7 @@ public class JoinService {
         //System.out.println("=====ServiceLine=====");
         //엔티티 생성
         Member member = memberRepository.findOne(memberId);
-        Club club = clubRepository.findById(clubId).orElse(null);;
+        Club club = clubRepository.findOne(clubId);
 
         //동아리 생성
         JoinClub joinClub = JoinClub.addJoinClub(club, count);//OK

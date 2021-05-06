@@ -3,7 +3,7 @@
 <head th:replace="fragments/header :: header" />
 <body>
 <div th:replace="fragments/navbar :: navbar"/>
-<div class="container-fluid" th:if="${getClubList.size()}!=0">
+<div class="container-fluid">
     <div class="row">
         <div th:replace="fragments/sidebar :: sidebar"/>
         <div class="col-md-10">
@@ -16,7 +16,7 @@
                     <th></th>
                 </tr>
                 </thead>
-                <tbody> <tr th:each="club : ${clubList}">
+                <tbody> <tr th:each="club : ${clubs}">
                     <td th:text="${club.id}"></td>
                     <td th:text="${club.name}"></td>
                     <td th:text="${club.totalNumber}"></td>
@@ -26,70 +26,15 @@
                     </td>
                     <td>
                         <a th:href="'javascript:changeClub('+${club.id}+')'"
-                           class="btn btn-primary">수정</a>
+                           class="btn btn-danger">수정</a>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <nav style="text-align: center">
-                <ul class="pagination centered" style="display: inline-block"
-                    th:with="start=${T(Math).floor(clubList.number/10)*10 + 1},
-                    last=(${start + 9 < clubList.totalPages ? start + 9 : clubList.totalPages})">
-                    <li style="float: left" class="page-item">
-                        <a class="page-link" th:href="@{/clubs/list(page=1)}" aria-label="First">
-                            <span aria-hidden="true">First</span>
-                        </a>
-                    </li>
-
-                    <li style="float: left" th:class="${clubList.first} ? 'page-item'">
-                        <a class="page-link" th:href="${clubList.first} ? '#' :@{/clubs/list(page=${clubList.number})}" aria-label="Previous">
-                            <span aria-hidden="true">&lt;</span>
-                        </a>
-                    </li>
-
-                    <li style="float: left" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == clubList.number + 1} ? 'page-item'">
-                        <a class="page-link" th:text="${page}" th:href="@{/clubs/list?(page=${page})}"></a>
-                    </li>
-
-                    <li style="float: left" th:class="${clubList.last} ? 'page-item'">
-                        <a class="page-link" th:href="${clubList.last} ? '#' : @{/clubs/list(page=${clubList.number + 2})}" aria-label="Next">
-                            <span aria-hidden="true">&gt;</span>
-                        </a>
-                    </li>
-
-                    <li style="float: left" class="page-item">
-                        <a class="page-link" th:href="@{/clubs/list(page=${clubList.totalPages})}" aria-label="Last">
-                            <span aria-hidden="true">Last</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
         </div>
     </div>
+    <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
-<div class="container-fluid" th:unless="${getClubList.size()}!=0"><!--데이터가 없을경우-->
-    <div class="row">
-        <div th:replace="fragments/sidebar :: sidebar"/>
-        <div class="col-md-10">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>동아리명</th>
-                    <th>남은 가입가능인원수</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th colspan="4" style="text-align: center">등록된 동아리가 없습니다!</th>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-<div th:replace="fragments/footer :: footer"/>
 </body>
 <script>
     function deleteClub(id) {
