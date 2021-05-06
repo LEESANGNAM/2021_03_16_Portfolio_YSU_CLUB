@@ -11,6 +11,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+
 import static org.junit.jupiter.api.Assertions.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -19,6 +21,8 @@ class ClubServiceTest {
 
     @Autowired ClubService clubService;
     @Autowired ClubRepository clubRepository;
+    @Autowired
+    private EntityManager em;
 
      @Test
      public void 클럽생성() throws Exception{
@@ -28,8 +32,10 @@ class ClubServiceTest {
           book.setAuthor("Lee");
          //when
         clubService.saveClub(book);
+         em.flush();
+        Book book2= (Book) clubService.findOne(new Long(1));
          //then
-        assertEquals(book, clubRepository.findOne(book.getId()));
+        assertEquals(book, book2);
      }
 
       @Test
@@ -40,9 +46,10 @@ class ClubServiceTest {
           book.setAuthor("Lee111");
           clubService.saveClub(book);
           //when
-          clubService.deleteClub(book);
+          clubService.deleteClub(book.getId());
+          Book book2= (Book) clubService.findOne(new Long(1));
           //then
-          assertNotEquals(book,clubRepository.findOne(book.getId()));
+          assertNotEquals(book,book2);
       }
 
        @Test
