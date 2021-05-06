@@ -1,12 +1,17 @@
 package kr.ac.yeonsung.demo.controller;
 
 
+import kr.ac.yeonsung.demo.domain.EventBoard;
+import kr.ac.yeonsung.demo.domain.NoticeBoard;
 import kr.ac.yeonsung.demo.domain.club.Book;
 import kr.ac.yeonsung.demo.domain.club.Club;
 import kr.ac.yeonsung.demo.service.ClubService;
 import kr.ac.yeonsung.demo.service.JoinClubService;
 import kr.ac.yeonsung.demo.service.JoinService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,22 +43,22 @@ public class ClubController {
 
         clubService.saveClub(book);
 
-        return "redirect:/";
+        return "redirect:/clubs/list";
     }
 
-    @GetMapping("/clubs")
-    public String list(Model model) {
-        List<Club> clubs = clubService.findClub();
-        model.addAttribute("clubs", clubs);
-        return "clubs/clubList";
-
-    }
+//    @GetMapping("/clubs")
+//    public String list(Model model) {
+//        List<Club> clubs = clubService.findClub();
+//        model.addAttribute("clubs", clubs);
+//        return "clubs/clubList";
+//
+//    }
 
     @PostMapping("clubs/{clubId}/delete")
     public String deleteClub(@PathVariable("clubId") Long clubId){
         Club club = clubService.findOne(clubId);
         joinClubService.chageStatus(club);
-        clubService.deleteClub(club);
+        clubService.deleteClub(clubId);
         return "redirect:/clubs";
     }
 
@@ -69,5 +74,16 @@ public class ClubController {
         clubService.updateClub(clubId,form.getName(),form.getTotalNumber(),
                 form.getAuthor(),form.getIsbn());
         return "redirect:/clubs";
+    }
+
+    // 페이징
+    @GetMapping("/clubs/list")
+    public String list(@PageableDefault Pageable pageable, Model model){
+        Page<Club> clubList = clubService.findAll(pageable);
+        model.addAttribute("clubList", clubList);
+
+        List<Club> getClubList = clubList.getContent();
+        model.addAttribute("getClubList",getClubList);//list size가져옴, list size확인용
+        return "/clubs/clubList";
     }
 }
