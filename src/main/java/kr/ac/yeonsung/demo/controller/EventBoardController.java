@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.List;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -34,7 +36,7 @@ public class EventBoardController {
             return "eventBoard/eventWrite";
         }
         eventBoardService.write(form);
-        return "redirect:/";
+        return "redirect:/eventBoard/list";
     }
 
     @GetMapping("/eventBoard/view/{eventId}")
@@ -66,10 +68,14 @@ public class EventBoardController {
         return "redirect:/eventBoard/list";
     }
 
-    @GetMapping("eventBoard/list")
+
+    @GetMapping("/eventBoard/list")
     public String list(@PageableDefault Pageable pageable, Model model) {
         Page<EventBoard> eventBoardList = eventBoardService.findAll(pageable);
         model.addAttribute("eventList", eventBoardList);
+
+        List<EventBoard> getEventList = eventBoardList.getContent();
+        model.addAttribute("getEventList", getEventList);
         return "eventBoard/eventList";
     }
 }

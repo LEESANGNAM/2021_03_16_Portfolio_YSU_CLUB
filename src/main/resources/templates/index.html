@@ -28,29 +28,24 @@
               <a href="/members" class="list-group-item">회원 관리 </a>
               <a href="/clubs" class="list-group-item">동아리 관리 </a>
               <a href="/joins" class="list-group-item">동아리신청 관리</a>
-              <a class="btn btn-lg btn-info" href="/noticeBoard/write">공지 작성</a>
-              <a class="btn btn-lg btn-info" href="/noticeBoard/list">공지 게시판</a>
-              <a class="btn btn-lg btn-info" href="/eventBoard/write">이벤트 작성</a>
-              <a class="btn btn-lg btn-info" href="/eventBoard/list">이벤트 게시판</a>
+              <a class="list-group-item" href="/noticeBoard/write">공지 작성</a>
+              <a class="list-group-item" href="/noticeBoard/list">공지 게시판</a>
+              <a class="list-group-item" href="/eventBoard/write">이벤트 작성</a>
+              <a class="list-group-item" href="/eventBoard/list">이벤트 게시판</a>
             </div>
             <div class="p-2 my-2">
               <div class="card text-center pt-2 bg-light">
                 <h5 class="pt-2 pb-2">외부 사이트</h5>
                 <ul class="list-group">
-                  <li class="list-group-item">네이버</li>
-                  <li class="list-group-item">유튜브</li>
-                  <li class="list-group-item">페이스북</li>
-                  <li class="list-group-item">인스타그램</li>
+                  <li class="list-group-item"><a href="https://www.naver.com/">네이버</a></li>
+                  <li class="list-group-item"><a href="https://www.youtube.com/">유튜브</a></li>
+                  <li class="list-group-item"><a href="https://www.facebook.com/">페이스북</a></li>
                 </ul>
-                <div class="card-footer text-muted">
-                  12 minutes ago
-                </div>
               </div>
             </div>
           </div>
-
+          <!--관련 페이지-->
           <div class="col-md-9">
-
             <div class="list-group">
               <a href="/" class="list-group-item active">관리 페이지 둘러보기</a>
               <div class="list-group-item">
@@ -77,46 +72,60 @@
                   </div>
                 </div>
               </div>
-              <a href="/" class="list-group-item active">공지사항 둘러보기</a>
-              <div class="list-group-item">
+
+              <!--main 공지사항-->
+                <a href="/" class="list-group-item active" style="float: left">공지사항</a>
+                <div class="list-group-item">
+
                 <div class="list-group" th:if="${findTop3.size()}!=0">
                   <table class="table">
-                    <tbody>
+                    <thead>
                     <tr>
-                      <th class="mobile" scope="col" style="width: 60px; text-align: center;">번호</th>
-                      <th scope="col" style="text-align: center;">제목</th>
-                      <th class="mobile" scope="col" style="width: 80px; text-align: center;">작성자</th>
-                      <th class="mobile" scope="col" style="width: 120px; text-align: center;">작성일</th>
+                      <th class="mobile" scope="col">번호</th>
+                      <th scope="col">제목</th>
+                      <th class="mobile" scope="col">작성자</th>
+                      <th class="mobile" scope="col">작성일</th>
                     </tr>
+
+                    </thead>
+                    <tbody>
+
                     <tr th:each="findTop : ${findTop3}">
                       <td th:text="${findTop.id}"></td>
                       <td><a th:text="${findTop.title}" href="" th:href="@{'/noticeBoard/view/'+${findTop.id}}"/></td>
                       <td th:text="${findTop.name}"></td>
                       <td th:text="${findTop.writeDate}"></td>
-                    </tr>
 
-                    <tr>
-                      <td colspan="4"><button class="btn btn-success" data-toggle="modal" data-target="#modal" onclick = "location.href = '/noticeBoard/write'">공지사항 추가</button></td>
                     </tr>
                     </tbody>
+                    <tr>
+                      <td colspan="4" style="text-align: right"><button class="btn btn-success" data-toggle="modal" data-target="#modal" onclick = "location.href = '/noticeBoard/write'">공지사항 추가</button></td>
+
+                    </tr>
                   </table>
                 </div>
                 <div class="list-group" th:unless="${findTop3.size()}!=0">
                   <table class="table">
+                   <thead>
+                    <tr>
+
+                      <th class="mobile" scope="col">번호</th>
+                      <th scope="col">제목</th>
+                      <th class="mobile" scope="col">작성자</th>
+                      <th class="mobile" scope="col">작성일</th>
+
+                    </tr>
+                   </thead>
                     <tbody>
                     <tr>
-                      <th class="mobile" scope="col" style="width: 60px; text-align: center;">번호</th>
-                      <th scope="col" style="text-align: center;">제목</th>
-                      <th class="mobile" scope="col" style="width: 80px; text-align: center;">작성자</th>
-                      <th class="mobile" scope="col" style="width: 120px; text-align: center;">작성일</th>
-                    </tr>
-                    <tr>
+
                       <td colspan="4" style="text-align: center">등록된 공지사항이 없습니다!</td>
-                    </tr>
-                    <tr>
-                      <td colspan="4"><button class="btn btn-success" data-toggle="modal" data-target="#modal" onclick = "location.href = '/noticeBoard/write'">공지사항 추가</button></td>
+
                     </tr>
                     </tbody>
+                    <tr>
+                      <td colspan="4" style="text-align: right"><button class="btn btn-success" data-toggle="modal" data-target="#modal" onclick = "location.href = '/noticeBoard/write'">공지사항 추가</button></td>
+                    </tr>
                   </table>
                 </div>
               </div>

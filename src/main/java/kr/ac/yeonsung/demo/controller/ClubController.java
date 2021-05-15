@@ -43,16 +43,19 @@ public class ClubController {
 
         clubService.saveClub(book);
 
-        return "redirect:/clubs/list";
+        return "redirect:/clubs";
     }
 
-//    @GetMapping("/clubs")
-//    public String list(Model model) {
-//        List<Club> clubs = clubService.findClub();
-//        model.addAttribute("clubs", clubs);
-//        return "clubs/clubList";
-//
-//    }
+    // 페이징
+    @GetMapping("/clubs")
+    public String list(@PageableDefault Pageable pageable, Model model){
+        Page<Club> clubList = clubService.findAll(pageable);
+        model.addAttribute("clubList", clubList);
+
+        List<Club> getClubList = clubList.getContent();
+        model.addAttribute("getClubList",getClubList);//list size가져옴, list size확인용
+        return "/clubs/clubList";
+    }
 
     @PostMapping("clubs/{clubId}/delete")
     public String deleteClub(@PathVariable("clubId") Long clubId){
@@ -76,14 +79,5 @@ public class ClubController {
         return "redirect:/clubs";
     }
 
-    // 페이징
-    @GetMapping("/clubs/list")
-    public String list(@PageableDefault Pageable pageable, Model model){
-        Page<Club> clubList = clubService.findAll(pageable);
-        model.addAttribute("clubList", clubList);
 
-        List<Club> getClubList = clubList.getContent();
-        model.addAttribute("getClubList",getClubList);//list size가져옴, list size확인용
-        return "/clubs/clubList";
-    }
 }

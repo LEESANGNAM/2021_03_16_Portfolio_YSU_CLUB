@@ -15,7 +15,7 @@ https://velog.io/@woodyn1002/삽질-로그-Hibernate에서-부모가-둘인-Enti
 
 ### 삭제 하려니깐 인덱스 오류가 나온다.
 ![스크린샷 2021-04-28 오후 10 02 26](https://user-images.githubusercontent.com/61412496/116410520-d39c3c80-a86f-11eb-9f05-5a06c3014428.png)
-### 이
+### 이유
 + 찾아온 리스트의 사이즈만 큼 반복을 할 때 삭제할수록 리스트의 크기도 바뀌기때문에 인덱스가 꼬여버린다.
 ```java
 for(int i=0; i<=byClub.size();i++) {

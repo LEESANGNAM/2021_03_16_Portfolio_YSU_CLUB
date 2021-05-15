@@ -36,29 +36,29 @@
                     th:with="start=${T(Math).floor(clubList.number/10)*10 + 1},
                     last=(${start + 9 < clubList.totalPages ? start + 9 : clubList.totalPages})">
                     <li style="float: left" class="page-item">
-                        <a class="page-link" th:href="@{/clubs/list(page=1)}" aria-label="First">
+                        <a class="page-link" th:href="@{/clubs(page=1)}" aria-label="First">
                             <span aria-hidden="true">First</span>
                         </a>
                     </li>
 
                     <li style="float: left" th:class="${clubList.first} ? 'page-item'">
-                        <a class="page-link" th:href="${clubList.first} ? '#' :@{/clubs/list(page=${clubList.number})}" aria-label="Previous">
+                        <a class="page-link" th:href="${clubList.first} ? '#' :@{/clubs(page=${clubList.number})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
 
                     <li style="float: left" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == clubList.number + 1} ? 'page-item'">
-                        <a class="page-link" th:text="${page}" th:href="@{/clubs/list?(page=${page})}"></a>
+                        <a class="page-link" th:text="${page}" th:href="@{/clubs?(page=${page})}"></a>
                     </li>
 
                     <li style="float: left" th:class="${clubList.last} ? 'page-item'">
-                        <a class="page-link" th:href="${clubList.last} ? '#' : @{/clubs/list(page=${clubList.number + 2})}" aria-label="Next">
+                        <a class="page-link" th:href="${clubList.last} ? '#' : @{/clubs(page=${clubList.number + 2})}" aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
 
                     <li style="float: left" class="page-item">
-                        <a class="page-link" th:href="@{/clubs/list(page=${clubList.totalPages})}" aria-label="Last">
+                        <a class="page-link" th:href="@{/clubs(page=${clubList.totalPages})}" aria-label="Last">
                             <span aria-hidden="true">Last</span>
                         </a>
                     </li>

@@ -34,7 +34,7 @@ public class NoticeBoardController {
             return "noticeBoard/noticeWrite";
         }
         noticeBoardService.write(form);
-        return "redirect:/"; // 첫 번째 페이지로 넘어가게함
+        return "redirect:/noticeBoard/list"; // 첫 번째 페이지로 넘어가게함
     }
 
     //게시글 보기

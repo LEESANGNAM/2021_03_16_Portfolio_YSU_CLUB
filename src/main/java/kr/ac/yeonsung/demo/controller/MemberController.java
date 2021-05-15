@@ -39,7 +39,7 @@ public class MemberController {
         member.setAddress((address));
 
         memberService.join(member);
-        return "redirect:/"; // 첫 번째 페이지로 넘어가게함
+        return "redirect:/members"; // 첫 번째 페이지로 넘어가게함
     }
 
     @GetMapping("/members")
