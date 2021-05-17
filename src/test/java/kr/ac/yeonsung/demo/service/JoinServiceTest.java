@@ -43,7 +43,7 @@ public class JoinServiceTest {
         Long joinId = joinService.Join(member.getId(),club.getId(),joinCount);
 
         //then
-        Join getJoin = joinRepository.findOne(joinId);
+        Join getJoin = joinRepository.findById(joinId).orElse(null);
 
         assertEquals("상태확인", JoinStatus.apply,getJoin.getStatus());
         assertEquals("빠진 멤버수 확인",9,club.getTotalNumber());//10-1
@@ -64,7 +64,7 @@ public class JoinServiceTest {
 
 
         //then
-        Join getjoin = joinRepository.findOne(joinId);
+        Join getjoin = joinRepository.findById(joinId).orElse(null);
         assertEquals("동아리 탈퇴 확인",JoinStatus.cancel,getjoin.getStatus());//탈퇴후 Join의 status가 cancel인지 확인
         assertEquals("Member 동아리 탈퇴 확인",JoinStatus.cancel,member.getStatus());//탈퇴후 Member의 status가 cancel인지 확인
         assertEquals("동아리 총인원 증가 확인",10,club.getTotalNumber());//탈퇴후 Club totalNumber 증가 확인

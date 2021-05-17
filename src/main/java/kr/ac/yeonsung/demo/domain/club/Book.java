@@ -12,7 +12,5 @@ import javax.persistence.Entity;
 @Setter
 public class Book extends Club{
 
-    private String author;
-    private String isbn;
 }
 

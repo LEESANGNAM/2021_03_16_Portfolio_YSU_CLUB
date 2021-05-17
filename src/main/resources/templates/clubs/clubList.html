@@ -13,6 +13,7 @@
                     <th>#</th>
                     <th>동아리명</th>
                     <th>남은 가입가능인원수</th>
+                    <th>동아리 회장</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -20,6 +21,7 @@
                     <td th:text="${club.id}"></td>
                     <td th:text="${club.name}"></td>
                     <td th:text="${club.totalNumber}"></td>
+                    <td th:text="${club.clubJang}"></td>
                     <td>
                         <a th:href="'javascript:deleteClub('+${club.id}+')'"
                            class="btn btn-danger">삭제</a>

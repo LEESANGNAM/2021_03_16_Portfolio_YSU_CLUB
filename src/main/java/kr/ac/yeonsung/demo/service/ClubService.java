@@ -48,11 +48,10 @@ public class ClubService {
     }
 
     @Transactional
-    public void updateClub(Long clubId, String name, int totalNumber, String author, String isbn) {
+    public void updateClub(Long clubId, String name, int totalNumber, String clubJang) {
         Book book = (Book)findOne(clubId);
         book.setName(name);
         book.setTotalNumber(totalNumber);
-        book.setAuthor(author);
-        book.setIsbn(isbn);
+        book.setClubJang(clubJang);
     }
 }

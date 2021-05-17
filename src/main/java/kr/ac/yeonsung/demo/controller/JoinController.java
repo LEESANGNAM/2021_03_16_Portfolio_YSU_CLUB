@@ -7,9 +7,13 @@ import kr.ac.yeonsung.demo.domain.Member;
 import kr.ac.yeonsung.demo.domain.club.Club;
 import kr.ac.yeonsung.demo.repository.JoinClubRepository;
 import kr.ac.yeonsung.demo.service.ClubService;
+import kr.ac.yeonsung.demo.service.JoinClubService;
 import kr.ac.yeonsung.demo.service.JoinService;
 import kr.ac.yeonsung.demo.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JoinController {
 
+    private final JoinClubService joinClubService;
     private final JoinService joinService;
     private final MemberService memberService;
     private final ClubService clubService;
@@ -44,11 +49,15 @@ public class JoinController {
         return "redirect:/joins";
     }
 
+// 페이징
     @GetMapping("/joins")
-    public String orderList(Model model){
-        List<JoinClub> joinList = joinService.findAll();
-        model.addAttribute("joins",joinList);
-        return  "join/joinList";
+    public String list(@PageableDefault Pageable pageable, Model model){
+        Page<JoinClub> joinClubList = joinClubService.findAll(pageable);
+        model.addAttribute("joinClubList", joinClubList);
+
+        List<JoinClub> getJoinClubList = joinClubList.getContent();
+        model.addAttribute("getJoinClubList",getJoinClubList);//list size가져옴, list size확인용
+        return "/join/joinList";
     }
 
     @PostMapping("joins/{joinId}/cancel")

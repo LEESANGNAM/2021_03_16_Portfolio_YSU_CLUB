@@ -11,7 +11,5 @@ public class BookForm {
 
     private String name;
     private int totalNumber;
-
-    private String author;
-    private String isbn;
+    private String clubJang;
 }

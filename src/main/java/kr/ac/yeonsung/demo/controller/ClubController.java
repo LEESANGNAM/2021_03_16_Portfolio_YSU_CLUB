@@ -2,12 +2,14 @@ package kr.ac.yeonsung.demo.controller;
 
 
 import kr.ac.yeonsung.demo.domain.EventBoard;
+import kr.ac.yeonsung.demo.domain.Member;
 import kr.ac.yeonsung.demo.domain.NoticeBoard;
 import kr.ac.yeonsung.demo.domain.club.Book;
 import kr.ac.yeonsung.demo.domain.club.Club;
 import kr.ac.yeonsung.demo.service.ClubService;
 import kr.ac.yeonsung.demo.service.JoinClubService;
 import kr.ac.yeonsung.demo.service.JoinService;
+import kr.ac.yeonsung.demo.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -25,21 +28,25 @@ import java.util.List;
 public class ClubController {
     private final ClubService clubService;
     private final JoinClubService joinClubService;
+    private final MemberService memberService;
 
 
     @GetMapping("/clubs/new")
     public String createForm(Model model) {
+        List<Member> members = memberService.findMembers();
+
         model.addAttribute("form", new BookForm());
+        model.addAttribute("members",members);
         return "clubs/createClubForm";
     }
 
     @PostMapping("/clubs/new")
-    public String create(BookForm form) {
+    public String create(BookForm form, @RequestParam("memberId") Long memberId) {
         Book book = new Book();
+        Member member = memberService.findOne(memberId);
         book.setName(form.getName());
         book.setTotalNumber(form.getTotalNumber());
-        book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
+        book.setClubJang(member.getName());
 
         clubService.saveClub(book);
 
@@ -75,7 +82,7 @@ public class ClubController {
     @PostMapping("/clubs/{clubId}/change")
     public String change(BookForm form,@PathVariable("clubId") Long clubId){
         clubService.updateClub(clubId,form.getName(),form.getTotalNumber(),
-                form.getAuthor(),form.getIsbn());
+                form.getClubJang());
         return "redirect:/clubs";
     }
 

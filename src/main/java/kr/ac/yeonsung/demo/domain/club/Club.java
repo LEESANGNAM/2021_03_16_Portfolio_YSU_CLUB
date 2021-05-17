@@ -33,6 +33,8 @@ public abstract class Club {
     @OneToMany(mappedBy = "club",cascade = CascadeType.REMOVE)
     private List<JoinClub> joinClubs = new ArrayList<>();
 
+    private String clubJang;
+
     //=====비즈니스 로직=====//
     //동아리 탈퇴(총인원에서 1증가)
     public void addMember(int count){
