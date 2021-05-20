@@ -47,6 +47,9 @@ public class JoinService {
         //System.out.println("===============");
         return join.getId();
     }
+    public Join findOne(Long joinId){
+        return joinRepository.findById(joinId).orElse(null);
+    }
     
     //탈퇴
     @Transactional

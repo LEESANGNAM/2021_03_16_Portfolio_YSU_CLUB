@@ -74,15 +74,19 @@ public class ClubController {
 
     @GetMapping("/clubs/{clubId}/change")
     public String changeForm(Model model,@PathVariable("clubId") Long clubId){
+        List<Member> members = memberService.findMembers();
+
         Club club = clubService.findOne(clubId);
         model.addAttribute("form",club);
+        model.addAttribute("members",members);
         return "clubs/clubInfoChange";
     }
 
     @PostMapping("/clubs/{clubId}/change")
-    public String change(BookForm form,@PathVariable("clubId") Long clubId){
+    public String change(BookForm form,@PathVariable("clubId") Long clubId,@RequestParam("memberId") Long memberId){
+        Member member = memberService.findOne(memberId);
         clubService.updateClub(clubId,form.getName(),form.getTotalNumber(),
-                form.getClubJang());
+                member.getName());
         return "redirect:/clubs";
     }
 
