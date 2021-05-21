@@ -38,7 +38,7 @@ public class JoinClubService {
 
     public Page<JoinClub> findAll(Pageable pageable){
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
-        pageable = PageRequest.of(page, 3, Sort.Direction.DESC,"id");
+        pageable = PageRequest.of(page, 10, Sort.Direction.DESC,"id");
         return joinClubRepository.findAll(pageable);
     }
 
