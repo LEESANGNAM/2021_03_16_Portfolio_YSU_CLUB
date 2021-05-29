@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
-    List<Member> findByName(String name);
+    List<Member> findByAddress_ClassNumber(String classNumber);
 }
 
 //@Repository

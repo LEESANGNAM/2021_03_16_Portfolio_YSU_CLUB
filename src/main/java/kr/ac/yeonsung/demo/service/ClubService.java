@@ -1,5 +1,6 @@
 package kr.ac.yeonsung.demo.service;
 
+import kr.ac.yeonsung.demo.domain.Member;
 import kr.ac.yeonsung.demo.domain.NoticeBoard;
 import kr.ac.yeonsung.demo.domain.club.Book;
 import kr.ac.yeonsung.demo.domain.club.Club;
@@ -24,10 +25,18 @@ public class ClubService {
     private final JoinClubRepository joinClubRepository;
 
     @Transactional
-    public void saveClub(Club club){
+    public Long saveClub(Club club){
+        validateDuplicateClub(club.getName());
         clubRepository.save(club);
+        return club.getId();
     }
-
+    private void validateDuplicateClub(String name) {
+        // EXCEPTION
+        List<Club> findClubs = clubRepository.findByName(name);
+        if (!findClubs.isEmpty()) {
+            throw new IllegalStateException("이미 존재하는 동아리명입니다.");
+        }
+    }
     public List<Club> findClub(){
         return  clubRepository.findAll();
     }
@@ -49,9 +58,11 @@ public class ClubService {
 
     @Transactional
     public void updateClub(Long clubId, String name, int totalNumber, String clubJang) {
-        Book book = (Book)findOne(clubId);
-        book.setName(name);
-        book.setTotalNumber(totalNumber);
-        book.setClubJang(clubJang);
+        Club club = findOne(clubId);
+        validateDuplicateClub(name);
+        club.setName(name);
+        club.setTotalNumber(totalNumber);
+        club.setClubJang(clubJang);
+
     }
 }
