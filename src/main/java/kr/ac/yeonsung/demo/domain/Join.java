@@ -44,7 +44,7 @@ public class Join {
         joinClubs.add(joinClub);
         joinClub.setJoin(this);
     }
-////,,,,,
+
     public void delClub(JoinClub joinClub){
         joinClubs.remove(joinClub);
         joinClub.setClub(null);

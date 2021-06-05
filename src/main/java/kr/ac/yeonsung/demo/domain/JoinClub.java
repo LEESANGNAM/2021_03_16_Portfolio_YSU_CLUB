@@ -27,10 +27,7 @@ public class JoinClub {
     private Club club;
 
     private int count;//가입 인원(사실상1)
-    /*
-    private int totalNumber;    // 총인원
-    private int currentNumber;  // 현재인원
-    */
+
 
     //=====생성 로직=====//
     //동아리세팅

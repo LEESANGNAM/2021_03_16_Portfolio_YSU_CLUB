@@ -7,7 +7,7 @@ import javax.validation.constraints.*;
 
 @Getter
 @Setter
-public class BookForm {
+public class ClubForm {
 
     private Long id;
 
